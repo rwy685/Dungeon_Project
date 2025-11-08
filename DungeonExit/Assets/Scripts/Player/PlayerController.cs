@@ -105,6 +105,12 @@ public class PlayerController : MonoBehaviour
         bool isGrounded = IsGrounded();
 
         anim.SetBool("IsMove", isMoving);
+
+        // Jump_Up 상태일 땐 IsGround를 건드리지 않음
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Jump_Up"))
+        {
+            anim.SetBool("IsGround", isGrounded);
+        }
     }
 
 }
