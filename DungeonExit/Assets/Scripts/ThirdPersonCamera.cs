@@ -6,7 +6,7 @@ public class ThirdPersonCamera : MonoBehaviour
 {
     [SerializeField] private float lookHeight;
     public Transform target;
-    public Vector3 offset = new Vector3(0, 1.8f, -4.0f);
+    public Vector3 offset;
     public float followSpeed = 10f;
     public float rotateSpeed = 5f;
 
@@ -15,13 +15,38 @@ public class ThirdPersonCamera : MonoBehaviour
     public float sensitivity = 2f;
     public float minY = -30f;
     public float maxY = 60f;
+    private bool initialized = false;
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+    private void Start()
+    {
+        if (target == null) return;
+
+        // 카메라가 타겟 기준으로 얼마나 떨어져있는지 계산해서 offset 재설정
+        Vector3 targetpos = target.position + Vector3.up * lookHeight;
+
+        //씬 기준 offset 자동계산
+        offset = transform.position - targetpos;
+
+        // 현재 카메라의 회전 각도 저장
+        Vector3 dir = (transform.position - targetpos).normalized;
+        Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
+        Vector3 angles = rot.eulerAngles;
+
+        currentX = angles.y;
+        currentY = angles.x > 180f ? angles.x - 360f : angles.x;
+    }
+
+
 
     private void LateUpdate()
     {
         if (target == null) return;
 
         currentX += Input.GetAxis("Mouse X") * sensitivity;
-        currentY -= Input.GetAxis("Mouse Y") * sensitivity;
+        currentY += Input.GetAxis("Mouse Y") * sensitivity;
         currentY = Mathf.Clamp(currentY, minY, maxY);
 
         Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
@@ -50,5 +75,6 @@ public class ThirdPersonCamera : MonoBehaviour
         }
 
         transform.LookAt(targetpos);
+
     }
 }

@@ -19,15 +19,8 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
     }
-
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
     private void Update()
     {
-        
         UpdateAnimation();
     }
     private void FixedUpdate()
@@ -70,9 +63,15 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && IsGrounded())
         {
-            _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            anim.SetTrigger("Jump");
         }
     }
+
+    public void DoJump()
+    {
+        _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+    }
+
 
 
 
@@ -102,11 +101,15 @@ public class PlayerController : MonoBehaviour
     {
         if (anim == null) return;
 
-        bool isMoving = new Vector3(_rigidbody.velocity.x, 0, _rigidbody.velocity.z).magnitude > 0.1f;
-        bool isJumping = !IsGrounded();
+        bool isMoving = curMovementInput.magnitude > 0.1f;
+        bool isGrounded = IsGrounded();
 
         anim.SetBool("IsMove", isMoving);
-        anim.SetBool("IsJump", isJumping);
+        // Jump 트리거 발동 중이면 Ground 갱신을 잠시 막음
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
+        {
+            anim.SetBool("IsGround", isGrounded);
+        }
     }
 
 }
