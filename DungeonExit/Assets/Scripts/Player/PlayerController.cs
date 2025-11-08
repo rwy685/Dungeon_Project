@@ -64,16 +64,9 @@ public class PlayerController : MonoBehaviour
         if (context.phase == InputActionPhase.Started && IsGrounded())
         {
             anim.SetTrigger("Jump");
+            _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }
     }
-
-    public void DoJump()
-    {
-        _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-    }
-
-
-
 
     bool IsGrounded()
     {
@@ -105,12 +98,8 @@ public class PlayerController : MonoBehaviour
         bool isGrounded = IsGrounded();
 
         anim.SetBool("IsMove", isMoving);
+        anim.SetBool("IsGround", isGrounded);
 
-        // Jump_Up 상태일 땐 IsGround를 건드리지 않음
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Jump_Up"))
-        {
-            anim.SetBool("IsGround", isGrounded);
-        }
     }
 
 }
