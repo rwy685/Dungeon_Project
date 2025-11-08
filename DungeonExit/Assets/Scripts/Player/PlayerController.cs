@@ -105,11 +105,6 @@ public class PlayerController : MonoBehaviour
         bool isGrounded = IsGrounded();
 
         anim.SetBool("IsMove", isMoving);
-        // Jump 트리거 발동 중이면 Ground 갱신을 잠시 막음
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
-        {
-            anim.SetBool("IsGround", isGrounded);
-        }
     }
 
 }
