@@ -15,7 +15,7 @@ public class ThirdPersonCamera : MonoBehaviour
     public float sensitivity = 2f;
     public float minY = -30f;
     public float maxY = 60f;
-    private bool initialized = false;
+    
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;

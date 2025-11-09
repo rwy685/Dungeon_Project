@@ -64,8 +64,12 @@ public class PlayerController : MonoBehaviour
         if (context.phase == InputActionPhase.Started && IsGrounded())
         {
             anim.SetTrigger("Jump");
-            _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }
+    }
+
+    public void DoJump()
+    {
+        _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
     }
 
     bool IsGrounded()
