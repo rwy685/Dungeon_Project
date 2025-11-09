@@ -12,16 +12,21 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayerMask;
 
     private Rigidbody _rigidbody;
-    protected Animator anim;
+    private AnimationHandler animHandler;
+
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        anim = GetComponentInChildren<Animator>();
+        animHandler = GetComponent<AnimationHandler>();
     }
     private void Update()
     {
-        UpdateAnimation();
+        bool isMoving = curMovementInput.magnitude > 0.1f;
+        bool isGrounded = IsGrounded();
+
+        // AnimationHandler에 상태 전달
+        animHandler.UpdateMovementAnimation(isMoving, isGrounded);
     }
     private void FixedUpdate()
     {
@@ -63,10 +68,11 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && IsGrounded())
         {
-            anim.SetTrigger("Jump");
+            animHandler.TriggerJump();
         }
     }
 
+    //실제 점프 물리적용(애니메이션 이벤트)
     public void DoJump()
     {
         _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
@@ -93,17 +99,4 @@ public class PlayerController : MonoBehaviour
         return false;
 
     }
-
-    protected void UpdateAnimation()
-    {
-        if (anim == null) return;
-
-        bool isMoving = curMovementInput.magnitude > 0.1f;
-        bool isGrounded = IsGrounded();
-
-        anim.SetBool("IsMove", isMoving);
-        anim.SetBool("IsGround", isGrounded);
-
-    }
-
 }

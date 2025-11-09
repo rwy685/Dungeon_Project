@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCondition : MonoBehaviour
 {
     public UICondition uiCondition;
-    protected Animator anim;
+    private AnimationHandler animHandler;
 
     Condition health { get { return uiCondition.health; } }
 
@@ -14,7 +15,7 @@ public class PlayerCondition : MonoBehaviour
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
+        animHandler = GetComponent<AnimationHandler>();
     }
 
     private void Update()
@@ -32,7 +33,7 @@ public class PlayerCondition : MonoBehaviour
 
     public void Die()
     {
-        anim.SetTrigger("Dead");
+        animHandler.PlayDeath();
     }
 
     public void TakeDamage(float amount)
