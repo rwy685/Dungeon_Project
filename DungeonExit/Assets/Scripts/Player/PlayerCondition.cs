@@ -6,10 +6,16 @@ using UnityEngine;
 public class PlayerCondition : MonoBehaviour
 {
     public UICondition uiCondition;
+    protected Animator anim;
 
     Condition health { get { return uiCondition.health; } }
 
     public event Action onTakeDamage;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -26,7 +32,7 @@ public class PlayerCondition : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("사망");
+        anim.SetTrigger("Dead");
     }
 
     public void TakeDamage(float amount)
