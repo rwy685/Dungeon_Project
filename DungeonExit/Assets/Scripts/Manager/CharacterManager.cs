@@ -5,7 +5,6 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     private static CharacterManager _instance;
-
     public static CharacterManager Instance
     {
         get
@@ -27,14 +26,14 @@ public class CharacterManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance != null)
+        if (_instance == null)
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
-            if (_instance == null)
+            if (_instance != null)
             {
                 Destroy(gameObject);
             }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
@@ -14,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
     private AnimationHandler animHandler;
 
+    private float jumpBoost;
 
     private void Awake()
     {
@@ -32,6 +32,59 @@ public class PlayerController : MonoBehaviour
     {
         Move();
     }
+    //
+    // 입력처리
+    //
+
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            curMovementInput = context.ReadValue<Vector2>();
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            curMovementInput = Vector2.zero;
+        }
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && IsGrounded())
+        {
+            animHandler.TriggerJump();
+        }
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, 2f))
+        {
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            if (interactable != null)
+                interactable.OnInteract();
+        }
+    }
+
+    public void OnUseItem1(InputAction.CallbackContext context)
+    {
+        if(!context.started) return;
+        CharacterManager.Instance.Player.inventory.UseItem(0);
+    }
+
+    public void OnUseItem2(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+        CharacterManager.Instance.Player.inventory.UseItem(1);
+    }
+
+    //
+    //물리이동 / 점프처리
+    //
 
     private void Move()
     {
@@ -51,27 +104,7 @@ public class PlayerController : MonoBehaviour
             _rigidbody.velocity = new Vector3(0, _rigidbody.velocity.y, 0);
         }
     }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Performed)
-        {
-            curMovementInput = context.ReadValue<Vector2>();
-        }
-        else if (context.phase == InputActionPhase.Canceled)
-        {
-            curMovementInput = Vector2.zero;
-        }
-    }
-
-    public void Jump(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started && IsGrounded())
-        {
-            animHandler.TriggerJump();
-        }
-    }
-
+   
     //실제 점프 물리적용(애니메이션 이벤트)
     public void DoJump()
     {
@@ -99,4 +132,17 @@ public class PlayerController : MonoBehaviour
         return false;
 
     }
+
+    public void BoostJump(float value)
+    {
+        jumpBoost = value;
+        StartCoroutine(ResetJumpBoost());
+    }
+
+    IEnumerator ResetJumpBoost()
+    {
+        yield return new WaitForSeconds(5f);
+        jumpBoost = 0f;
+    }
+    
 }
