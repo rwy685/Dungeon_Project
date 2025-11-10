@@ -4,6 +4,7 @@ public enum ItemType
 {
     Resource,
     Consumable,
+    Interaction
 }
 
 public enum ConsumableType
