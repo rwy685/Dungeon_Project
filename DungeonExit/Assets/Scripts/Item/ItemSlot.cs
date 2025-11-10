@@ -19,8 +19,11 @@ public class ItemSlot : MonoBehaviour
 
     public void ClearSlot()
     {
-        currentItem = null;
-        icon.enabled = false;
-        quantityText.text = "";
+        if (icon.sprite != null)
+        {
+            currentItem = null;
+            icon.enabled = false;
+            quantityText.text = "";
+        }
     }
 }
