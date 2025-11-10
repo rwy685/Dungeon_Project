@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class UIInventory : MonoBehaviour
@@ -10,14 +8,10 @@ public class UIInventory : MonoBehaviour
 
     public void AddItem(ItemData newItem)
     {
-        Debug.Log($"[UIInventory] AddItem 호출됨: {newItem.displayName}");
         if (items.Count >= itemSlots.Length)
             return;
         items.Add(newItem);
-        Debug.Log($"현재 인벤토리 아이템 수: {items.Count}");
-        Debug.Log($"아이템 추가됨: {newItem.displayName}");
         UpdateUI();
-        
     }
 
     public void UseItem(int index)
@@ -27,7 +21,7 @@ public class UIInventory : MonoBehaviour
 
         ItemData item = items[index];
         ApplyItemEffect(item);
-        items.RemoveAt(index);
+        items[index] = null;
         UpdateUI();
     }
 
@@ -39,7 +33,7 @@ public class UIInventory : MonoBehaviour
             {
                 if (c.Type == ConsumableType.Health)
                     CharacterManager.Instance.Player.condition.Heal(c.value);
-                else if (c.Type == ConsumableType.JumpingPower)
+                else if (c.Type == ConsumableType.JumpBoost)
                     CharacterManager.Instance.Player.controller.BoostJump(c.value);
             }
         }
@@ -50,7 +44,7 @@ public class UIInventory : MonoBehaviour
         Debug.Log($"[UIInventory] UpdateUI 실행됨, items.Count = {items.Count}");
         for (int i = 0; i < itemSlots.Length; i++)
         {
-            if (i < items.Count)
+            if (i < items.Count && items[i] != null)
             {
                 Debug.Log($"슬롯 {i}에 {items[i].displayName} 설정");
                 itemSlots[i].SetItem(items[i]);

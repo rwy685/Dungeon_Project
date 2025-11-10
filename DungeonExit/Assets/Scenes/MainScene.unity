@@ -14269,7 +14269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
   condition: {fileID: 0}
-  inventory: {fileID: 1735262974}
+  inventory: {fileID: 0}
   itemData: {fileID: 0}
 --- !u!54 &616370947
 Rigidbody:
@@ -14357,46 +14357,6 @@ MonoBehaviour:
     m_ActionId: adf9cf39-5ad4-4fc9-80ad-54d0e41b784d
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 52b02b69-9146-4b55-b1d9-28825aed4923
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 477a5299-9ba2-49b7-b659-720dcfda4127
-    m_ActionName: UI/Submit[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9ee019f0-c89c-43a6-8d39-b4af226e132c
-    m_ActionName: UI/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: db53881a-90fb-4da4-9c40-ae6d630c69ba
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8513ecc2-bad9-470b-a511-73b539c7c0cf
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d589f40b-d73b-4bfc-ae74-8ed3ec9fe3be
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 91464421-8762-4498-8723-906a6a921896
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1d31de84-9bfd-4b0e-9dc9-0430aa58d36a
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b37c0f23-edc4-4a05-bcc2-c0b09ac0533c
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 424d1903-8613-47d7-b8a2-8b8d12318492
-    m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 616370951}
         m_TargetAssemblyTypeName: Interaction, Assembly-CSharp
@@ -14413,11 +14373,35 @@ MonoBehaviour:
     m_ActionId: dc46e46a-a5ce-413b-b3ae-8090d3c36397
     m_ActionName: Player/Interaction[/Keyboard/e]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 616370944}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnUseItem1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e95be2ea-7d79-41b0-9e39-9319a322ebe4
     m_ActionName: Player/UseItem1[/Keyboard/1]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 616370944}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnUseItem2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 70243df4-7fc2-4492-af27-4adb690f0d56
     m_ActionName: Player/UseItem2[/Keyboard/2]
   m_NeverAutoSwitchControlSchemes: 0

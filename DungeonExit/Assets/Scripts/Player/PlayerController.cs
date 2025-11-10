@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
@@ -136,12 +135,14 @@ public class PlayerController : MonoBehaviour
     public void BoostJump(float value)
     {
         jumpBoost = value;
+        jumpPower = jumpPower + jumpBoost;
         StartCoroutine(ResetJumpBoost());
     }
 
     IEnumerator ResetJumpBoost()
     {
         yield return new WaitForSeconds(5f);
+        jumpPower -= jumpBoost;
         jumpBoost = 0f;
     }
     
