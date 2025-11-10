@@ -29,9 +29,14 @@ public class Interaction : MonoBehaviour
             lastCheckTime = Time.time;
 
             Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            
+            //Ray 시작점 플레이어 기준으로 변경
+            Vector3 rayOrigin = transform.position + Vector3.up * 1.5f; // 캐릭터 머리높이
+            Vector3 rayDirection = (ray.GetPoint(10f) - rayOrigin).normalized; //카메라 방향교차
+
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
+            if (Physics.SphereCast(rayOrigin, 0.5f, rayDirection, out hit, maxCheckDistance, layerMask))
             {
                 if (hit.collider.gameObject != curInteractGameObject)
                 {
@@ -47,7 +52,8 @@ public class Interaction : MonoBehaviour
                 promptText.gameObject.SetActive(false);
 
             }
-            Debug.DrawRay(ray.origin, ray.direction * maxCheckDistance, Color.red);
+
+            Debug.DrawRay(rayOrigin, rayDirection * maxCheckDistance, Color.red);
         }
 
 
