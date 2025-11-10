@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rigidbody;
     private AnimationHandler animHandler;
+    private PlayerCondition condition;
 
     private float jumpBoost;
 
@@ -18,9 +19,12 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         animHandler = GetComponent<AnimationHandler>();
+        condition = GetComponent<PlayerCondition>();
     }
     private void Update()
     {
+        if(condition.isDead) return;
+
         bool isMoving = curMovementInput.magnitude > 0.1f;
         bool isGrounded = IsGrounded();
 
@@ -29,6 +33,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (condition.isDead) return;
         Move();
     }
     //

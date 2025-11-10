@@ -5,6 +5,7 @@ public class PlayerCondition : MonoBehaviour
 {
     public UICondition uiCondition;
     private AnimationHandler animHandler;
+    public bool isDead { get; private set; } = false;
 
     Condition health { get { return uiCondition.health; } }
 
@@ -17,7 +18,7 @@ public class PlayerCondition : MonoBehaviour
 
     private void Update()
     {
-        if (health.curValue <= 0f)
+        if (health.curValue <= 0f && !isDead)
         {
             Die();
         }
@@ -25,16 +26,28 @@ public class PlayerCondition : MonoBehaviour
 
     public void Heal(float amount)
     {
+        if (isDead) return;
         health.Add(amount);
     }
 
     public void Die()
     {
+        if (isDead) return;
+        isDead = true;
+
         animHandler.PlayDeath();
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
     }
 
     public void TakeDamage(float amount)
     {
+        if (isDead) return;
         health.Subtract(amount);
         onTakeDamage?.Invoke();
 
