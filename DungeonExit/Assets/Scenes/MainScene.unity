@@ -9458,7 +9458,8 @@ GameObject:
   - component: {fileID: 402930302}
   - component: {fileID: 402930301}
   - component: {fileID: 402930304}
-  m_Layer: 6
+  - component: {fileID: 402930305}
+  m_Layer: 0
   m_Name: JumpFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9529,6 +9530,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &402930305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402930300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 130799289e7b1fd43accd7a60ef23b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpPower: 10
 --- !u!1001 &405403842
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29080,7 +29094,7 @@ PrefabInstance:
     - target: {fileID: 7564636611156017616, guid: e7a79a14190d3d34f93236ba7164d734,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8328509268577167364, guid: e7a79a14190d3d34f93236ba7164d734,
         type: 3}
