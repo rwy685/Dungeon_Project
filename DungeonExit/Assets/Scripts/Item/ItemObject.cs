@@ -16,7 +16,16 @@ public class ItemObject : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        CharacterManager.Instance.Player.addItem?.Invoke(data);
-        Destroy(gameObject);
+        if (data.type == ItemType.Consumable || data.type == ItemType.Resource)
+        {
+            CharacterManager.Instance.Player.addItem?.Invoke(data);
+            Destroy(gameObject);
+        }
+        else if (data.type == ItemType.Interaction)
+        {
+            //Interaction 타입은 인벤토리에 추가 X
+            Debug.Log($"{data.displayName}은 상호작용 전용");
+        }
+        
     }
 }
