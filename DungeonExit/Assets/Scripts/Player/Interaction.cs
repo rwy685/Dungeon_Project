@@ -13,11 +13,11 @@ public class Interaction : MonoBehaviour
     private IInteractable curInteractable;
 
     public TextMeshProUGUI promptText;
-    private Camera camera;
+    private Camera camera_3;
 
     void Start()
     {
-        camera = Camera.main;
+        camera_3 = Camera.main;
     }
     void Update()
     {
@@ -25,7 +25,7 @@ public class Interaction : MonoBehaviour
         {
             lastCheckTime = Time.time;
 
-            Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            Ray ray = camera_3.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
             
             //Ray 시작점 플레이어 기준으로 변경
             Vector3 rayOrigin = transform.position + Vector3.up * 1.5f; // 캐릭터 머리높이

@@ -53,5 +53,17 @@ public class AnimationHandler : MonoBehaviour
             anim.applyRootMotion = false;
         }
     }
+
+    public void OpenDoor()
+    {
+        Debug.Log("문 열기 트리거 작동");
+        anim.SetTrigger("Open");
+    }
+
+    public void LeverPull()
+    {
+        anim.SetTrigger("LeverPull");
+    }
+
 }
 

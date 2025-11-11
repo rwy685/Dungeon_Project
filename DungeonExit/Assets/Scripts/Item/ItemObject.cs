@@ -8,6 +8,7 @@ public interface IInteractable
 public class ItemObject : MonoBehaviour, IInteractable
 {
     public ItemData data;
+    public Lever lever;
     public string GetInteractPrompt()
     {
         string str = $"{data.displayName}\n{data.description}";
@@ -24,7 +25,13 @@ public class ItemObject : MonoBehaviour, IInteractable
         else if (data.type == ItemType.Interaction)
         {
             //Interaction 타입은 인벤토리에 추가 X
+            if (lever != null)
+            {
+                lever.LeverControl(default);
+            }
+            
             Debug.Log($"{data.displayName}은 상호작용 전용");
+            
         }
         
     }
