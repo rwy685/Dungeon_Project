@@ -39,20 +39,20 @@ public class AnimationHandler : MonoBehaviour
     }
 
     // 루트모션 제어 (착지 타이밍 처리)
-    private void OnAnimatorMove()
-    {
-        AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
+    //private void OnAnimatorMove()
+    //{
+    //    AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
 
-        if (state.IsName("Jump_Land"))
-        {
-            float t = state.normalizedTime;
-            anim.applyRootMotion = (t >= 0.7f);
-        }
-        else
-        {
-            anim.applyRootMotion = false;
-        }
-    }
+    //    if (state.IsName("Jump_Land"))
+    //    {
+    //        float t = state.normalizedTime;
+    //        anim.applyRootMotion = (t >= 0.7f);
+    //    }
+    //    else
+    //    {
+    //        anim.applyRootMotion = false;
+    //    }
+    //}
 
     public void OpenDoor()
     {
