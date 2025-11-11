@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Lever : MonoBehaviour
 {
     private AnimationHandler anim;
-    [SerializeField] private AnimationHandler doorAnim;
+    public Action OnLeverPulled;
+
 
     private void Start()
     {
@@ -17,15 +17,12 @@ public class Lever : MonoBehaviour
     {
         anim.LeverPull();
 
-        StartCoroutine(OpenDoorAfterDelay(1.0f));
+        StartCoroutine(InvokeAfterDelay(1.0f));
     }
 
-    IEnumerator OpenDoorAfterDelay(float delay)
+    IEnumerator InvokeAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (doorAnim != null)
-        {
-            doorAnim.OpenDoor();
-        }
+        OnLeverPulled?.Invoke(); 
     }
 }

@@ -37,23 +37,6 @@ public class AnimationHandler : MonoBehaviour
     {
         anim.SetTrigger("Dead");
     }
-
-    // 루트모션 제어 (착지 타이밍 처리)
-    //private void OnAnimatorMove()
-    //{
-    //    AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
-
-    //    if (state.IsName("Jump_Land"))
-    //    {
-    //        float t = state.normalizedTime;
-    //        anim.applyRootMotion = (t >= 0.7f);
-    //    }
-    //    else
-    //    {
-    //        anim.applyRootMotion = false;
-    //    }
-    //}
-
     public void OpenDoor()
     {
         Debug.Log("문 열기 트리거 작동");
@@ -65,5 +48,10 @@ public class AnimationHandler : MonoBehaviour
         anim.SetTrigger("LeverPull");
     }
 
+    public void OpenChest()
+    {
+        Debug.Log("상자 열기 트리거");
+        anim.SetTrigger("Open");
+    }
 }
 

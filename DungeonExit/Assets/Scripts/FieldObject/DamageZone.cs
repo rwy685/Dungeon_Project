@@ -7,22 +7,21 @@ public class DamageZone : MonoBehaviour
     [SerializeField] private int damageAmount = 10;
     [SerializeField] private float knockbackForce = 5f;
 
-    private void OnTriggerEnter(Collider collider)
+    private void OnCollisionEnter(Collision collision)
     {
-       
-        if (collider.CompareTag("Player"))
-        {   
+        if (collision.collider.CompareTag("Player"))
+        {
             //체력감소
-            var player = collider.GetComponent<PlayerCondition>();
+            var player = collision.collider.GetComponent<PlayerCondition>();
             if (player != null)
             {
                 player.TakeDamage(damageAmount);
             }
-           //넉백
-            Rigidbody playerRb = collider.GetComponent<Rigidbody>();
+            //넉백
+            Rigidbody playerRb = collision.collider.GetComponent<Rigidbody>();
             if (playerRb != null)
             {
-                Vector3 knockDir = (collider.transform.position - transform.position).normalized;
+                Vector3 knockDir = (collision.collider.transform.position - transform.position).normalized;
                 knockDir.x = 4f;
                 knockDir.y = 1.5f;
 
