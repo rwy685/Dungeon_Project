@@ -19,7 +19,6 @@ public class MovingFloor : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
     }
 
     private void Start()

@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private PlayerCondition condition;
 
     private float jumpBoost;
+    private MovingFloor currentFloor;
 
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
     {
         if (condition.isDead) return;
         Move();
+        ApplyMovingFloor();
     }
     //
     // 입력처리
@@ -150,5 +152,23 @@ public class PlayerController : MonoBehaviour
         jumpPower -= jumpBoost;
         jumpBoost = 0f;
     }
-    
+
+    void ApplyMovingFloor()
+    {
+        Ray ray = new Ray(transform.position + Vector3.up * 0.1f, Vector3.down);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 0.3f, groundLayerMask))
+        {
+            MovingFloor floor = hit.collider.GetComponent<MovingFloor>();
+            if (floor != null)
+            {
+                currentFloor = floor;
+                _rigidbody.position += floor.DeltaPosition; // 상대 이동 보정
+                return;
+            }
+        }
+
+        currentFloor = null;
+    }
+
 }
