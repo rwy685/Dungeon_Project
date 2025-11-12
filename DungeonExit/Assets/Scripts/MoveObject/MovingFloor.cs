@@ -19,6 +19,8 @@ public class MovingFloor : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
     }
 
     private void Start()
@@ -31,9 +33,8 @@ public class MovingFloor : MonoBehaviour
     private void FixedUpdate()
     {
         // 다음 위치 계산
-        Vector3 nextPos = Vector3.MoveTowards(rb.position,
-                                              movingToTarget ? targetPos : startPos,
-                                              moveSpeed * Time.fixedDeltaTime);
+        Vector3 nextPos = Vector3.MoveTowards(rb.position, movingToTarget ? targetPos : startPos, moveSpeed * Time.fixedDeltaTime);
+
         // 이동
         rb.MovePosition(nextPos);
 

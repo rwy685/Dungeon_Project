@@ -163,12 +163,13 @@ public class PlayerController : MonoBehaviour
             if (floor != null)
             {
                 currentFloor = floor;
-                _rigidbody.position += floor.DeltaPosition; // 상대 이동 보정
+                _rigidbody.position += floor.DeltaPosition; // 플랫폼 이동량을 더gkrl
                 return;
             }
         }
-
-        currentFloor = null;
+        
+        currentFloor = null; 
     }
+
 
 }

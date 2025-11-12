@@ -37,9 +37,7 @@ public class ThirdPersonCamera : MonoBehaviour
         currentY = angles.x > 180f ? angles.x - 360f : angles.x;
     }
 
-
-
-    private void LateUpdate()
+    private void Update()
     {
         if (target == null) return;
 
@@ -73,6 +71,6 @@ public class ThirdPersonCamera : MonoBehaviour
         }
 
         transform.LookAt(targetpos);
-
     }
+
 }
