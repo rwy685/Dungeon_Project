@@ -94,23 +94,43 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+        // 입력 방향
         Vector3 dir = new Vector3(curMovementInput.x, 0, curMovementInput.y);
 
+        // 회전 보간은 FixedUpdate에서 호출되니 fixedDeltaTime 사용
         if (dir.magnitude > 0.1f)
         {
             float targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
             Quaternion rotation = Quaternion.Euler(0, targetAngle, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.fixedDeltaTime * 10f); // ← 수정
 
             Vector3 moveDir = rotation * Vector3.forward;
-            _rigidbody.velocity = moveDir * moveSpeed + Vector3.up * _rigidbody.velocity.y;
+
+            // 플랫폼 위라면 플랫폼 "속도"를 계산해서 더하기
+            Vector3 platformVel = Vector3.zero;
+            if (currentFloor != null)
+            {
+                platformVel = currentFloor.DeltaPosition / Time.fixedDeltaTime;
+            }
+
+            // 수평속도 = 자신의 이동 + 플랫폼 속도
+            Vector3 horizontalVel = moveDir * moveSpeed + platformVel;
+
+            // 최종 velocity = 수평 + 기존 수직
+            _rigidbody.velocity = new Vector3(horizontalVel.x, _rigidbody.velocity.y, horizontalVel.z);
         }
         else
         {
-            _rigidbody.velocity = new Vector3(0, _rigidbody.velocity.y, 0);
+            // 입력이 없을 때도 플랫폼 위에선 플랫폼 속도로만 이동
+            Vector3 platformVel = Vector3.zero;
+            if (currentFloor != null)
+                platformVel = currentFloor.DeltaPosition / Time.fixedDeltaTime;
+
+            _rigidbody.velocity = new Vector3(platformVel.x, _rigidbody.velocity.y, platformVel.z);
         }
     }
-   
+
+
     //실제 점프 물리적용(애니메이션 이벤트)
     public void DoJump()
     {
@@ -155,21 +175,17 @@ public class PlayerController : MonoBehaviour
 
     void ApplyMovingFloor()
     {
-        Ray ray = new Ray(transform.position + Vector3.up * 0.1f, Vector3.down);
+        currentFloor = null;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 0.3f, groundLayerMask))
+        Ray ray = new Ray(transform.position + Vector3.up * 0.3f, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hit, 0.6f, groundLayerMask))
         {
-            MovingFloor floor = hit.collider.GetComponent<MovingFloor>();
+            var floor = hit.collider.GetComponent<MovingFloor>();
             if (floor != null)
             {
                 currentFloor = floor;
-                _rigidbody.position += floor.DeltaPosition; // 플랫폼 이동량을 더gkrl
-                return;
             }
         }
-        
-        currentFloor = null; 
     }
-
 
 }

@@ -21,6 +21,7 @@ public class MovingFloor : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
         rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
     }
 
     private void Start()
@@ -32,20 +33,21 @@ public class MovingFloor : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 다음 위치 계산
-        Vector3 nextPos = Vector3.MoveTowards(rb.position, movingToTarget ? targetPos : startPos, moveSpeed * Time.fixedDeltaTime);
+        Vector3 nextPos = Vector3.MoveTowards(
+        transform.position,                      // Transform 직접 이동
+        movingToTarget ? targetPos : startPos,
+        moveSpeed * Time.fixedDeltaTime
+    );
 
-        // 이동
-        rb.MovePosition(nextPos);
+        transform.position = nextPos;
 
-        // 이동량 계산 (플레이어 보정용)
         DeltaPosition = nextPos - lastPosition;
         lastPosition = nextPos;
 
-        // 도착 시 방향 반전
-        if (Vector3.Distance(rb.position, movingToTarget ? targetPos : startPos) < 0.05f)
+        if (Vector3.Distance(transform.position, movingToTarget ? targetPos : startPos) < 0.05f)
             movingToTarget = !movingToTarget;
     }
+
 
 }
 
