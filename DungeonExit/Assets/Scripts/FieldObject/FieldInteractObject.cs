@@ -6,6 +6,7 @@ public class FieldInteractObject : MonoBehaviour, IInteractable
 {
     public ItemData data;
     public Lever lever;
+    public ClearObject clearObject;
     public string GetInteractPrompt()
     {
         string str = $"{data.displayName}\n{data.description}";
@@ -21,7 +22,11 @@ public class FieldInteractObject : MonoBehaviour, IInteractable
             {
                 lever.LeverControl(default);
             }
-            Debug.Log($"{data.displayName}은 상호작용 전용");
+            else if (clearObject != null)
+            {
+                clearObject.ReStartScene();
+                Debug.Log($"{data.displayName}은 상호작용 전용");
+            }
         }
     }
 }

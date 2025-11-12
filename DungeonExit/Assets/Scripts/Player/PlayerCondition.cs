@@ -18,6 +18,7 @@ public class PlayerCondition : MonoBehaviour
 
     private void Update()
     {
+        if (health == null) return;
         if (health.curValue <= 0f && !isDead)
         {
             Die();
@@ -43,6 +44,8 @@ public class PlayerCondition : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
+
+        GameManager.Instance.UIManager.ShowRestartButton();
     }
 
     public void TakeDamage(float amount)

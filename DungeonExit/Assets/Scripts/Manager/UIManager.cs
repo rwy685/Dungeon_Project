@@ -1,18 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Restart UI")]
+    [SerializeField] private GameObject restartPanel;
+    [SerializeField] private Button restartButton;
+
+    private void Awake()
     {
-        
+        // 혹시라도 미리 꺼두기
+        if (restartPanel != null)
+            restartPanel.SetActive(false);
+
+        if (restartButton != null)
+            restartButton.onClick.AddListener(RestartGame);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void RestartGame()
     {
-        
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void ShowRestartButton()
+    {
+        if (restartPanel != null)
+        {
+            restartPanel.SetActive(true);
+            EnableCursor(true);
+        }
+        else
+        {
+            Debug.LogWarning("[UIManager] restartPanel이 연결되어 있지 않습니다.");
+        }
+    }
+
+    private void EnableCursor(bool visible)
+    {
+        Cursor.visible = visible;
+        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }
+

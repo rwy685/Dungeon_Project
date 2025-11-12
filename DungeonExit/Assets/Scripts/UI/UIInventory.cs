@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
 public class UIInventory : MonoBehaviour
 {
     public List<ItemData> items = new List<ItemData>();
