@@ -8,7 +8,6 @@ public interface IInteractable
 public class ItemObject : MonoBehaviour, IInteractable
 {
     public ItemData data;
-    public Lever lever;
     public string GetInteractPrompt()
     {
         string str = $"{data.displayName}\n{data.description}";

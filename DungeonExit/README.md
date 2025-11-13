@@ -19,6 +19,29 @@
 
 ## 💜 주요기능
 
+-Bootstrapper 를 통해 GameManager를 생성 
+
+-GameManager 를 통해 게임의 전반적인 구동을 담당
+
+-ThirdPersonCamera로 게임의 진행을 3인칭 카메라의 형태로 촬영을 담당
+
+-CharacterManager 에서 Player 캐릭터의 생성 및 Condition,Controller를 담당
+
+-UIManager 에서 게임오버 및 재시작 버튼 관리를 담당
+
+-ItemData 에서 오브젝트들의 정보를 표시하는 Data형식의 파일 생성을 담당
+
+-Interaction 에서 오브젝트들과의 상호작용을 담당
+
+-ItemObject에서 아이템의 정보를 출력 및 상호작용을 담당
+
+-FieldInteractObject에서 필드 오브젝트의 정보를 출력 및 상호작용을 담당
+
+-InteractionObjManager 에서 상호작용 오브젝트(레버)와 상자,문과의 연결을 담당
+
+-UIInventory에서 플레이어가 상호작용을 통해 얻은 아이템들을 인벤토리에서 관리하는 역할을 담당
+
+
 ## ⏲️ 개발기간
 - 총 8일   { 2025.11.06(목) ~ 2025.11.13(목) }
 
