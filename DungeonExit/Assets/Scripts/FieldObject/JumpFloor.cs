@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class JumpFloor : MonoBehaviour
 {
-    public float jumpPower = 6f;
+    public float jumpPower = 10f;
     
     private void OnCollisionEnter(Collision collision)
     {
@@ -15,6 +13,8 @@ public class JumpFloor : MonoBehaviour
             if (playerRb != null)
             {
                 playerRb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+                Debug.Log("JumpFloor impulse applied");
+
             }
         }
     }

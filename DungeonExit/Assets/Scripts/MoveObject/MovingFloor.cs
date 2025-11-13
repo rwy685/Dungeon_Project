@@ -12,7 +12,7 @@ public class MovingFloor : MonoBehaviour
 
     private Rigidbody rb;
 
-    // 이동량을 플레이어에게 알려주기 위한 변수
+    // 플레이어에게 전달할 이동량
     public Vector3 DeltaPosition { get; private set; }
     private Vector3 lastPosition;
 
@@ -27,27 +27,33 @@ public class MovingFloor : MonoBehaviour
     private void Start()
     {
         startPos = transform.position;
-        targetPos = startPos + Vector3.back * moveDistance; // z축 이동
+        targetPos = startPos + Vector3.back * moveDistance;
         lastPosition = startPos;
     }
 
     private void FixedUpdate()
     {
+        Vector3 goalPos = movingToTarget ? targetPos : startPos;
+
         Vector3 nextPos = Vector3.MoveTowards(
-        transform.position,                      // Transform 직접 이동
-        movingToTarget ? targetPos : startPos,
-        moveSpeed * Time.fixedDeltaTime
-    );
+            rb.position,
+            goalPos,
+            moveSpeed * Time.fixedDeltaTime
+        );
 
-        transform.position = nextPos;
+        // transform.position = nextPos; 제거
+        rb.MovePosition(nextPos);   // ← 여기로 변경
 
-        DeltaPosition = nextPos - lastPosition;
+        Vector3 delta = nextPos - lastPosition;
+        delta.y = 0f;
+        DeltaPosition = delta;
+
         lastPosition = nextPos;
 
-        if (Vector3.Distance(transform.position, movingToTarget ? targetPos : startPos) < 0.05f)
+        if (Vector3.Distance(nextPos, goalPos) < 0.05f)
             movingToTarget = !movingToTarget;
     }
-
-
 }
+
+
 
