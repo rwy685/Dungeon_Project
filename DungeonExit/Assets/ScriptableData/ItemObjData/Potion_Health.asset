@@ -16,7 +16,7 @@ MonoBehaviour:
   description: "HP\uB97C 30\uD68C\uBCF5\uD569\uB2C8\uB2E4."
   type: 1
   icon: {fileID: 21300000, guid: c72b07a8561af544cbd094f0d00ed4d8, type: 3}
-  canStack: 0
+  canStack: 1
   maxStackAmount: 5
   consumables:
   - Type: 0

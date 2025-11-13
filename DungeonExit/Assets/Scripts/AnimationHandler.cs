@@ -37,17 +37,21 @@ public class AnimationHandler : MonoBehaviour
     {
         anim.SetTrigger("Dead");
     }
+
+    // 문열기 트리거
     public void OpenDoor()
     {
         Debug.Log("문 열기 트리거 작동");
         anim.SetTrigger("Open");
     }
 
+    //레버 트리거
     public void LeverPull()
     {
         anim.SetTrigger("LeverPull");
     }
 
+    //상자 열기 트리거
     public void OpenChest()
     {
         Debug.Log("상자 열기 트리거");

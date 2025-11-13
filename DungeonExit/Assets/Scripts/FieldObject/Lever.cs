@@ -13,6 +13,8 @@ public class Lever : MonoBehaviour
     {
         anim = GetComponent<AnimationHandler>();
     }
+
+    //레버 당기고 1초 뒤에 문 열리도록 지연
     public void LeverControl(InputAction.CallbackContext context)
     {
         anim.LeverPull();

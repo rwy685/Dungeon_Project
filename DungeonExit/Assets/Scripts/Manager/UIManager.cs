@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        // 혹시라도 미리 꺼두기
+        // 미리 꺼두기
         if (restartPanel != null)
             restartPanel.SetActive(false);
 

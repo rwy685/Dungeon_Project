@@ -25,12 +25,14 @@ public class PlayerCondition : MonoBehaviour
         }
     }
 
+    //포션 먹었을 때 체력 채움
     public void Heal(float amount)
     {
         if (isDead) return;
         health.Add(amount);
     }
 
+    //죽었을 때 자리에서 멈추기 + 애니메이션 + 버튼 출력
     public void Die()
     {
         if (isDead) return;

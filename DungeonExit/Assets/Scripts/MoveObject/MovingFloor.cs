@@ -41,8 +41,7 @@ public class MovingFloor : MonoBehaviour
             moveSpeed * Time.fixedDeltaTime
         );
 
-        // transform.position = nextPos; 제거
-        rb.MovePosition(nextPos);   // ← 여기로 변경
+        rb.MovePosition(nextPos);
 
         Vector3 delta = nextPos - lastPosition;
         delta.y = 0f;
