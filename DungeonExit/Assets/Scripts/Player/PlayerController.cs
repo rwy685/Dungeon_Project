@@ -107,6 +107,12 @@ public class PlayerController : MonoBehaviour
 
             Vector3 horizontalVel = moveDir * moveSpeed + platformVel;
 
+            // 벽체크 용
+            if (!IsGrounded() && IsHittingWall())
+            {
+                horizontalVel = Vector3.zero;
+            }
+
             _rigidbody.velocity =
                 new Vector3(horizontalVel.x, oldY, horizontalVel.z);
         }
@@ -142,11 +148,37 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < rays.Length; i++)
         {
-            if (Physics.Raycast(rays[i], 0.2f, groundLayerMask))
+            if (Physics.Raycast(rays[i], 0.3f, groundLayerMask))
                 return true;
         }
         return false;
     }
+
+    // 벽 체크
+    bool IsHittingWall()
+    {
+        // 플레이어의 이동 방향이 없으면 벽 체크할 필요 없음
+        if (curMovementInput == Vector2.zero)
+            return false;
+
+        // 플레이어의 ‘회전 방향’을 기준으로 앞쪽으로 레이 발사
+        Vector3 dir = transform.forward;
+
+        // 캐릭터 위치 약간 위에서 쏘면 바닥 충돌과 구분됨
+        Vector3 origin = transform.position + Vector3.up * 0.5f;
+
+        // 벽 체크 거리 (조금만 체크)
+        float distance = 0.3f;
+
+        // 벽이 groundLayerMask에 포함돼 있다면 해당 레이어 사용
+        if (Physics.Raycast(origin, dir, distance, groundLayerMask))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 
     // 점프 버프
     public void BoostJump(float value)
